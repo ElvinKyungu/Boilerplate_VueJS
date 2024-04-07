@@ -1,12 +1,25 @@
 <script lang="ts" setup>
-  import { ref } from 'vue'
+  import { ref, computed } from 'vue'
   import { signinWithOtp } from '@/lib/api'
 
   const email = ref('')
-  const handlSigninWithOtp = async()=>{
-    const result = await signinWithOtp(email.value)
-  }
+  const emailError = ref('')
 
+  const handleEmailBlur = () => {
+    if (!email.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      emailError.value = 'Adresse e-mail invalide'
+    } else {
+      emailError.value = ''
+    }
+  }
+  const hasErrors = computed(() => {
+    return emailError.value !== ''
+  })
+  const handlSigninWithOtp = async()=>{
+    if(!emailError.value){
+      const result = await signinWithOtp(email.value)
+    }
+  }
 </script>
 <template>
   <form @submit.prevent>
@@ -14,6 +27,8 @@
       <label class="text-xs block mb-2">Email</label>
       <div class="relative flex items-center">
         <input
+          @blur="handleEmailBlur"
+          @keyup="handleEmailBlur"
           v-model="email"
           name="email" 
           type="email" 
@@ -21,7 +36,8 @@
           class="
             w-full text-sm border-b border-gray-300 focus:border-[#333] 
             px-2 py-3 outline-none
-          " 
+          "
+          :class="{'border-red-500': emailError}"
           placeholder="Enter email" 
         />
         <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-[18px] h-[18px] absolute right-2" viewBox="0 0 682.667 682.667">
@@ -36,10 +52,14 @@
           </g>
         </svg>
       </div>
+      <span class="text-red-500 ml-4 mt-2 block" v-if="emailError !== ''">
+        {{ emailError }}
+      </span>
     </div>
     <div>
       <div class="mt-12 flex">
         <button
+          :class="{ 'opacity-50 cursor-not-allowed': hasErrors }"
           @click="handlSigninWithOtp"
           type="button" 
           class="
