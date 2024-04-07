@@ -1,25 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Menu } from '@ark-ui/vue'
-
-const isOpen = ref(false)
-const value = ref({
-  framework: '',
-  libraries: [],
-})
+  import Main from '@/components/Main.vue';
+  import Aside from '@/components/Aside.vue';
 </script>
 
 <template>
-  <Menu.Root>
-    <Menu.Trigger>Open menu</Menu.Trigger>
-    <Menu.Positioner>
-      <Menu.Content>
-        <Menu.Item id="search">Search</Menu.Item>
-        <Menu.Item id="undo">Undo</Menu.Item>
-        <Menu.Separator />
-        <Menu.Item id="delivery" disabled> Delivery </Menu.Item>
-        <Menu.Item id="unlink">Unlink</Menu.Item>
-      </Menu.Content>
-    </Menu.Positioner>
-  </Menu.Root>
+  <Aside />
+  <Main />
 </template>
