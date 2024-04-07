@@ -42,13 +42,11 @@
         console.log(id)
         console.log(email)
         if (email) {
-          // Create user after signin
-          // createUser(id, email)
           store.setUserData({
             userID: id,
             first_name: name,
             last_name: lastname,
-            token: accessToken,
+            access_token: accessToken,
             email: email
           })
           router.push({ name: 'Home' })
