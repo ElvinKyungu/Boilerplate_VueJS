@@ -1,6 +1,6 @@
 // guards.ts
 import { useUserStore } from '@/stores/userStore'
-import { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
+import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 
 export function isAuthenticated(
   to: RouteLocationNormalized,
@@ -12,7 +12,7 @@ export function isAuthenticated(
   console.log('Route de départ:', from)
   console.log('Route d\'arrivée:', to)
 
-  if (userStore.token) {
+  if (userStore.token !== null) {
     next()
   } else {
     next('/auth')

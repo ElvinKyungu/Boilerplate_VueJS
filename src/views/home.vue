@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import HomeContent from '../components/HomeContent.vue'
 </script>
 <template>
-  <HomeContent/>
+  <header>
+    <h1>Hello everyone</h1>
+  </header>
 </template>

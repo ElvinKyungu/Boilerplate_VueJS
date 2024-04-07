@@ -9,7 +9,7 @@
   import { onMounted } from 'vue'
   import { supabase } from '../lib/supabaseClient'
   import { useRouter } from 'vue-router'
-  import { useUserStore } from '../stores/store'
+  import { useUserStore } from '@/stores/userStore'
   // import { createUser } from '../lib/auth'
   const store = useUserStore()
 
