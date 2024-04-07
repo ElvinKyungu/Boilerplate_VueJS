@@ -19,8 +19,7 @@ async function signinWithOtp(email: string): Promise<any> {
       console.error(error)
       return { error }
     }
-    console.log('supabase.auth.user()', data)
-    router.push('/EmailConfirmationVue')
+    router.push('/EmailConfirmation')
     return { data }
   } catch (error) {
     console.log("Une erreur s'est produite ", error)
