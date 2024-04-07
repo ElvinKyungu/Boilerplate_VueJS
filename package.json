@@ -13,17 +13,24 @@
   "dependencies": {
     "@ark-ui/vue": "^0.11.0",
     "@supabase/supabase-js": "^2.42.0",
+    "@unocss/reset": "^0.59.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
+    "@iconify/json": "^2.2.197",
+    "@julr/unocss-preset-forms": "^0.1.0",
     "@tsconfig/node20": "^20.1.2",
     "@types/node": "^20.11.28",
+    "@typescript-eslint/parser": "^7.5.0",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/tsconfig": "^0.5.1",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
     "npm-run-all2": "^6.1.2",
     "typescript": "~5.4.0",
+    "undefined": "^0.1.0",
     "vite": "^5.1.6",
     "vite-plugin-vue-devtools": "^7.0.18",
     "vue-tsc": "^2.0.6"
