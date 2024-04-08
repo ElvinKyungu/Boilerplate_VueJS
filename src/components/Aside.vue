@@ -1,10 +1,10 @@
 <template>
-  <aside class="max-w-62.5 border-r border-gray-300 h-full ease-nav-brand z-990 fixed inset-y-0 my-4 ml-4 block w-full -translate-x-full flex-wrap items-center justify-between overflow-y-auto  bg-white p-0 antialiased shadow-none transition-transform duration-200 xl:left-0 xl:translate-x-0 xl:bg-transparent">
+  <aside class="max-w-62.5 border-r border-gray-300 h-full ease-nav-brand z-990 fixed inset-y-0 my-4 block w-full -translate-x-full flex-wrap items-center justify-between overflow-y-auto  bg-white p-0 antialiased shadow-none transition-transform duration-200 xl:left-0 xl:translate-x-0 xl:bg-transparent">
     <div class="h-19.5">
       <i class="absolute top-0 right-0 hidden p-4 opacity-50 cursor-pointer fas fa-times text-slate-400 xl:hidden" sidenav-close></i>
       <routerLink
         to="/"
-        class="block px-8 py-6 m-0 text-sm whitespace-nowrap text-slate-700"
+        class="block p-2 py-6 m-0 text-sm whitespace-nowrap text-slate-700"
       >
         <span class="ml-1 font-semibold text-xl transition-all duration-200 ease-nav-brand">
           Supavue-boilerplate
@@ -23,7 +23,6 @@
           >
             <div class="bg-indigo-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg stroke-0 text-center xl:p-2.5">
               <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <title>shop</title>
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                   <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
                     <g transform="translate(1716.000000, 291.000000)">
