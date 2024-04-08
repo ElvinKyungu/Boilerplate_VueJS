@@ -1,16 +1,34 @@
 <script setup lang="ts">
-  // import { useUserStore } from '@/stores/store'
-  // import { ref, onMounted, defineEmits } from 'vue'
-  // import { ediUserProfile, getUserProfile } from '@/lib/api'
-  // import { UserProfile } from '@/types/user.ts'
-  // const isLoading = ref(false)
-  // const currentProfilContent = ref('form')
-  // const emit = defineEmits()
-  // const userProfile = ref<UserProfile | null>(null)
+  import { emailValidation, checkCharacters } from '@/helpers/userProfile.ts'
+  import { ref } from 'vue'
+  import { useUserStore } from '@/stores/userStore'
 
-  // onMounted(async () => {
+  const userStore = useUserStore()
+  const errorMessage = ref('')
+  const userEdit = ref({
+    id: userStore.userID | '',
+    email: userStore.email | '',
+    first_name: '',
+    phone_number: '',
+    last_name: '',
+  })
+  
+  const handleEditProfile = async()=>{
+
+  }
+  const handleFirstNameBlur = ()=>{
     
-  // })
+  }
+  const handleLastNameBlur = ()=>{
+    
+  }
+  const handleEmailBlur = ()=>{
+    emailValidation()
+  }
+  const handlePhoneBlur = ()=>{
+    
+  }
+  
 </script>
 
 <template>
@@ -163,7 +181,7 @@
         >
           <button
             type="submit"
-            class="bg-primary text-white py-3 px-6 font-medium rounded-md"
+            class="bg-indigo text-white py-3 px-6 font-medium rounded-md"
           >
             <span>Save my profile</span>
           </button>
