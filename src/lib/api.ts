@@ -2,6 +2,7 @@ import { supabase } from './supabaseClient'
 // import type { UserProfile } from '../types/type'
 import { useUserStore } from '../stores/userStore'
 import router from '@/router/index'
+import type { UserProfile } from '@/types/user'
 
 // console.log(`${import.meta.env.VITE_SITE_URL}/welcome`)  
 
@@ -63,7 +64,23 @@ async function signinWithPassword({password, email}: any): Promise<any> {
     throw error
   }
 }
+const ediUserProfile = async (updates: UserProfile): Promise<Boolean> => {
+  console.log(updates)
+  try {
+    const { data, error } = await supabase.from('profiles').upsert(updates)
+    if (error) {
+      throw error
+    }
+    console.log(data)
+    return true
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+}
+
 export { 
   signinWithOtp,
   signinWithPassword,
+  ediUserProfile
 }
