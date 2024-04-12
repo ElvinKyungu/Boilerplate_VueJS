@@ -64,8 +64,31 @@ async function signinWithPassword({password, email}: any): Promise<any> {
     throw error
   }
 }
-const ediUserProfile = async (updates: UserProfile): Promise<Boolean> => {
-  console.log(updates)
+
+const getUserProfile = async (userId: string): Promise<UserProfile> => {
+  try {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .single()
+    if (error) {
+      console.error(error)
+      throw error
+    }
+    if (!data) {
+      console.error("User profile not found.")
+      throw error
+    }
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+const editUserProfile = async (updates: UserProfile): Promise<Boolean> => {
   try {
     const { data, error } = await supabase.from('profiles').upsert(updates)
     if (error) {
@@ -82,5 +105,6 @@ const ediUserProfile = async (updates: UserProfile): Promise<Boolean> => {
 export { 
   signinWithOtp,
   signinWithPassword,
-  ediUserProfile
+  editUserProfile,
+  getUserProfile
 }

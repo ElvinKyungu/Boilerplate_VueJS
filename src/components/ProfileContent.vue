@@ -1,69 +1,118 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useUserStore } from '@/stores/userStore'
+  import { ref, computed, onMounted } from 'vue'
+  import { useUserStore } from '@/stores/userStore'
+  import type { UserProfile } from '@/types/user'
+  import { getUserProfile, editUserProfile } from '@/lib/api'
+  import Swal from 'sweetalert2'
 
-const userStore = useUserStore()
-const errorMessage = ref({
-  last_name: '',
-  first_name: '',
-  phone: '',
-  email: '',
-})
-const userEdit = ref({
-  id: '',
-  email: '',
-  first_name: '',
-  phone_number: '',
-  last_name: '',
-})
+  const userStore = useUserStore()
+  const isLoading = ref(false)
+  const errorMessage = ref({
+    last_name: '',
+    first_name: '',
+    phone: '',
+    email: '',
+  })
+  const userEdit = ref<UserProfile | null>(null)
 
-const handleEditProfile = async () => {
-  console.log(userEdit.value)
-  if(isError.value){
-    console.log("login")
+  const handleEditProfile = async () => {
+    console.log(userEdit.value)
+    if(isError.value){
+      console.log("Hey")
+      try {
+        if(userEdit.value !== null){
+          const result = await editUserProfile(userEdit.value)
+          Swal.fire({
+            title: 'Success !',
+            text: 'Profile changé avec succès!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          })
+          isLoading.value = false
+        }
+      } catch (error) {
+        console.error(error)
+        Swal.fire({
+          title: 'Erreur !',
+          text: 'Une erreur est survenue lors de la mise à jour du profil.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        })
+        isLoading.value = false
+      }
+    }
+    else{
+      console.log("We can't log you")
+    }
   }
-  else{
-    console.log("We can't log you")
-  }
-}
 
-const valideFirstName = () => {
-  if (userEdit.value.first_name.length < 3 || userEdit.value.first_name.length > 50) {
-    errorMessage.value.first_name = 'Le prénom doit avoir entre 3 et 50 caractères'
-  } else {
-    errorMessage.value.first_name = ''
+  const valideFirstName = () => {
+    if(userEdit.value !== null){
+      const firstName = userEdit?.value.first_name
+      if (
+          firstName.length < 3 || 
+          firstName.length > 50
+        ) {
+        errorMessage.value.first_name = 'Le prénom doit avoir entre 3 et 50 caractères'
+      } else {
+        errorMessage.value.first_name = ''
+      }
+    }
   }
-}
 
-const valideLastName = () => {
-  if (userEdit.value.last_name.length < 3 || userEdit.value.last_name.length > 50) {
-    errorMessage.value.last_name = 'Le nom doit avoir entre 3 et 50 caractères'
-  } else {
-    errorMessage.value.last_name = ''
+  const valideLastName = () => {
+    if(userEdit.value !== null){
+      if (userEdit.value.last_name.length < 3 || userEdit.value.last_name.length > 50) {
+        errorMessage.value.last_name = 'Le nom doit avoir entre 3 et 50 caractères'
+      } else {
+        errorMessage.value.last_name = ''
+      }
+    }
   }
-}
 
-const validateEmail = () => {
-  if (!userEdit.value.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-    errorMessage.value.email = 'Adresse e-mail invalide'
-  } else {
-    errorMessage.value.email = ''
+  const validateEmail = () => {
+    if(userEdit.value !== null){
+      if (!userEdit.value.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+        errorMessage.value.email = 'Adresse e-mail invalide'
+      } else {
+        errorMessage.value.email = ''
+      }
+    }
   }
-}
 
-const validatePhone = () => {
-  const phoneNumberLength = userEdit.value.phone_number.length
-  if (phoneNumberLength < 10 || phoneNumberLength > 12) {
-    errorMessage.value.phone = 'Le numéro de téléphone doit avoir entre 10 et 12 chiffres'
-  } else {
-    errorMessage.value.phone = ''
+  const validatePhone = () => {
+    if(userEdit.value !== null){
+      const phoneNumberLength = userEdit.value.phone_number.length
+      if (phoneNumberLength < 10 || phoneNumberLength > 12) {
+        errorMessage.value.phone = 'Le numéro de téléphone doit avoir entre 10 et 12 chiffres'
+      } else {
+        errorMessage.value.phone = ''
+      }
+    }
   }
-}
 
-// Computed pour vérifier si les messages d'erreur sont vides
-const isError = computed(() => {
-  return Object.values(errorMessage.value).some(message => message !== '')
-})
+  // Computed pour vérifier si les messages d'erreur sont vides
+  const isError = computed(() => {
+    return Object.values(errorMessage.value).some(message => message !== '')
+  })
+
+  onMounted(async () => {
+    if (userStore.userID !== null) {
+      const userProfileData = await getUserProfile(userStore.userID)
+      console.log(userProfileData)
+      if ('error' in userProfileData) {
+        console.error("Erreur lors de la récupération du profil:", userProfileData.error)
+      } else {
+        userEdit.value = {
+          id: userStore.userID || '',
+          first_name: userProfileData.first_name || '',
+          last_name: userProfileData.last_name || '',
+          email: userProfileData.email || '',
+          phone_number: userProfileData.phone_number || '',
+        }
+      }
+    }
+  })
 </script>
 
 <template>
@@ -77,7 +126,9 @@ const isError = computed(() => {
       @submit.prevent
       class="flex justify-start w-full"
     >
-      <div class="flex flex-col gap-3 justify-start w-full">
+      <div 
+        v-if="userEdit"
+        class="flex flex-col gap-3 justify-start w-full">
         <p 
           class="text-base font-bold text-slate-700"
         >
