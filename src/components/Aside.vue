@@ -1,6 +1,4 @@
-<script>
-  
-</script>
+
 <template>
   <aside class="max-w-62.5 border-r border-gray-300 h-full ease-nav-brand z-990 fixed inset-y-0 my-4 block w-full -translate-x-full flex-wrap items-center justify-between overflow-y-auto  bg-white p-0 antialiased shadow-none transition-transform duration-200 xl:left-0 xl:translate-x-0 xl:bg-transparent">
     <div class="h-19.5">
