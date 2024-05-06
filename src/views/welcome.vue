@@ -19,16 +19,6 @@
     const hash = window.location.hash.substring(1)
     const params = new URLSearchParams(hash)
     const accessToken = params.get('access_token')
-    const refreshToken = params.get('refresh_token')
-    const expiresIn = params.get('expires_in')
-    const tokenType = params.get('token_type')
-    const expiresAt = params.get('expires_at')
-
-    console.log('accessToken:', accessToken)
-    console.log('refreshToken:', refreshToken)
-    console.log('expiresIn:', expiresIn)
-    console.log('tokenType:', tokenType)
-    console.log('expiresAt:', expiresAt)
 
     const { data, error } = await supabase.auth.getSession()
     if (error) {
@@ -39,8 +29,6 @@
         console.log('User:', data.session.user)
         const { id, email } = data.session.user
         const { name, lastname } = data.session.user.user_metadata
-        console.log(id)
-        console.log(email)
         if (email) {
           store.setUserData({
             userID: id,

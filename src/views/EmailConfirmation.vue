@@ -1,5 +1,5 @@
 <template>
   <div>
-    Hello, here it's a email confirmation page
+    Vérifiez votre le lien magique dans votre boîte mail 
   </div>
 </template>
