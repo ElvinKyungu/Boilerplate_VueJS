@@ -13,7 +13,7 @@ async function signinWithOtp(email: string): Promise<any> {
       options: {
         // set this to false if you do not want the user to be automatically signed up
         shouldCreateUser: true,
-        emailRedirectTo: `${import.meta.env.VITE_SITE_URL}welcome`
+        emailRedirectTo: `${import.meta.env.VITE_SITE_URL}/welcome`
       }
     })
     if (error) {
