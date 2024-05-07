@@ -1,11 +1,13 @@
-<script>
-  // import { useUserStore } from '@/stores/userStore'
+<script setup lang="ts">
+  import { useUserStore } from '@/stores/userStore'
+  import { useRouter } from 'vue-router'
 
-  // const userStore = useUserStore()
-  // const logout = ()=>{
-  //   userStore.clearUserData()
-  //   router.push('/auth')
-  // }
+  const router = useRouter()
+  const userStore = useUserStore()
+  const logout = ()=>{
+    userStore.clearUserData()
+    router.push('/auth')
+  }
 </script>
 <template>
   <ul 
